@@ -1,26 +1,24 @@
+import os
+
 from pymongo import MongoClient
-from main import MONGO_URL
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 
 docker_uri = "mongodb://localhost:27017"
 
-client = MongoClient(MONGO_URL)
+client = MongoClient(os.getenv("MONGO_URL"))
 db = client["telegram_client"]
 collection = db["parsedSites"]
 
 cnt = 0
 records = []
 for record in collection.find({}):
-    if cnt > 20:
-        break
-    if "ncbi.nlm.nih.gov" in record["articleUrl"] and "pubmed" in record["articleUrl"]:
+    if "category" in record and record["category"] == "articles":
         records.append(record)
         cnt += 1
-# records = [record for record in collection.find({})]
-# print(records)
-
-# result = collection.delete_many({"name": {"$regex": "^record"}})
-# print("Удалено документов:", result.deleted_count)
 
 try:
     new_client = MongoClient(docker_uri)
@@ -28,7 +26,8 @@ try:
     new_collection = new_db["parsedSites"]
 
     result = new_collection.insert_many(records)
-    print("Вставленные id:", result.inserted_ids)
+    # print("Вставленные id:", result.inserted_ids)
+    print(cnt)
 
 except Exception as e:
     print(e)

@@ -16,14 +16,19 @@ def urls_getter():
     collection = db["parsedSites"]
 
     for document in collection.find({}):
-        if "articleUrl" in document:
+        if (
+            "articleUrl" in document
+            and "category" in document
+            and document["category"] == "articles"
+        ):
             doc_url = document["articleUrl"]
             base_url = "/".join(doc_url.split("/")[:3]) + "/"
             if base_url not in urls:
-                print(base_url, doc_url)
+                print(base_url)
                 urls.append(base_url)
     print(len(urls))
     print(urls)
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     urls_getter()
