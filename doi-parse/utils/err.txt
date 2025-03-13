@@ -1,0 +1,6 @@
+<!doctype html><html lang="en"><body><div style="background-color:white;color:black;padding:100px;"><h2>429 Too Many Requests</h2><p>Your access to the NCBI website at <b>pubmed.ncbi.nlm.nih.gov</b> has been temporarily blocked due to possible misuse.
+</p><p>This is not an indication of a security issue such as a virus or attack.
+</p><p>If you are executing automated queries or otherwise scripting against the PubMed website, please review how to use E-utilities, <a href="https://www.ncbi.nlm.nih.gov/books/NBK25497/">https://www.ncbi.nlm.nih.gov/books/NBK25497/</a> 
+</p><p>The Entrez Programming Utilities (E-utilities) are a set of nine server-side programs that provide a stable interface into the Entrez query and database system at the National Center for Biotechnology Information (NCBI)
+</p><p>If you have further questions, please contact info@ncbi.nlm.nih.gov.
+</p><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html">HHS Vulnerability Disclosure</a> </body></html>

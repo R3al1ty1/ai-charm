@@ -32,3 +32,12 @@ def urls_getter():
 
 if __name__ == "__main__":
     urls_getter()
+
+
+right = [
+    "https://doi.org/",
+    "https://ncbi.nlm.nih.gov/",
+    "https://onlinelibrary.wiley.com/",
+    "https://pubmed.ncbi.nlm.nih.gov/",
+    "https://www.pubmed.ncbi.nlm.nih.gov/",
+]

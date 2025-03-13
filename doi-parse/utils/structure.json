@@ -1,0 +1,54 @@
+{
+    "languages": ["en", "ru"],
+    "title": {
+      "ru": {
+            "ai": "",
+            "human": ""
+      },
+      "en": {
+            "ai": "",
+            "human": ""
+      },
+      "raw": ""
+    },
+    "content": {
+      "ru": {
+            "ai": "",
+            "human": ""
+      },
+      "en": {
+            "ai": "",
+            "human": ""
+      },
+      "raw": ""
+    },
+    "summary": {
+      "ru": {
+            "ai": "",
+            "human": ""
+      }
+    },
+    "meta": {
+      "isIndexed": false,
+      "isPublished": false,
+        "isDeleted": false,
+      "hasTranslation": false,
+      "hasDevComment": false,
+        "isClinicalCase": false
+    },
+    "articleUrl": "",
+    "dates": {
+      "published": "",
+      "created": "",
+      "updated": ""
+    },
+    "category": "",
+    "subcategory": "",
+    "references": [],
+    "doi": "",
+    "publisherName": "",
+    "authors": [],
+    "addons": {},
+    "parserIteration": 2
+  }
+  
