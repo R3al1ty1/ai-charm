@@ -2,10 +2,11 @@ import os
 import aiohttp
 import asyncio
 import bibtexparser
-from typing import List
+from typing import List, Set
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from bs4 import BeautifulSoup
+
 
 load_dotenv()
 
@@ -24,19 +25,20 @@ right = [
 ]
 
 
-async def publisher_doi_finder(response_text: str):
+async def publisher_doi_finder(
+        response_text: str
+) -> Set:
+    """Функция поиска DOI и издательства в ответе API для PubMed."""
     try:
         doi = None
         publisher = None
 
-        soup = BeautifulSoup(response_text, 'xml')  # Парсим XML
+        soup = BeautifulSoup(response_text, 'xml')
 
-        # Извлекаем FullJournalName (издателя)
         publisher_meta = soup.find('Item', {'Name': 'FullJournalName'})
         if publisher_meta:
             publisher = publisher_meta.text.strip()
 
-        # Извлекаем DOI (убираем префикс "doi:")
         doi_meta = soup.find('Item', {'Name': 'ELocationID'})
         if doi_meta:
             doi = doi_meta.text.replace("doi: ", "").strip()
@@ -48,7 +50,11 @@ async def publisher_doi_finder(response_text: str):
         return None, None
 
 
-async def extract_bibtex(bibtex_str):
+async def extract_bibtex(
+        bibtex_str: str
+) -> Set:
+    """Функция поиска DOI и издательства в ответе API
+    для всех, кроме PubMed."""
     try:
         entry = bibtexparser.loads(bibtex_str).entries[0]
         doi = entry.get('doi') or entry.get('DOI')
@@ -72,7 +78,12 @@ async def is_url_valid(
     return False
 
 
-async def fetch_data(session, url, api_key):
+async def fetch_data(
+        session: aiohttp.ClientSession,
+        url: str,
+        api_key: str
+) -> Set:
+    """Функция обработки и поиска DOI и издательства."""
     params = {}
 
     if "pubmed" in url:
@@ -99,7 +110,10 @@ async def fetch_data(session, url, api_key):
             return await extract_bibtex(res)
 
 
-async def process_batch(batch, api_key):
+async def process_batch(
+        batch,
+        api_key: str
+) -> List:
     """Обработка пакета URL с определенным API ключом"""
     async with aiohttp.ClientSession() as session:
         tasks = [fetch_data(session, url, api_key) for url in batch]
@@ -107,7 +121,8 @@ async def process_batch(batch, api_key):
         return results
 
 
-async def send_request():
+async def send_request() -> None:
+    """Функция парсинга и загрузки DOI и издательства."""
     db = client["telegram_client"]
     collection = db["parsedSites"]
     urls_pub = []
